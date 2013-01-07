@@ -1,0 +1,98 @@
+Refactoring Documentation for Project “King Survival”
+Author: Todor Mihailov, TU-Sofia, f.n. 121208040 
+1.	Fix wrong output:
+•	Fix game board appearance – Print(char[,] matrix) method
+o	Get board size from the matrix array instead of static size property
+   ->  
+•	Fix illegal move appearance – removed “**Press any key to continue**” message – it is not included in the requirements
+
+2.	Gameplay changes:
+•	Pawn move over the king - Pawn should not be able to “catch” the king and win. When Pawn tries to move over king move is Invalid! 
+•	FIXED king move over pawn- When king moved over pawn move was valid and pawn disappeared. King move over pawn should be invalid
+•	King lose when has no valid moves – introduced method IsKingLose() that checks if king has no valid moves
+•	FIXED - When king reach the top of the board he doesn’t “win” immediately but after next pawn move
+•	Introduced KingMovesCount, PawnsMovesCount moves counters to show the number of moves
+•	Figures are shifted left with 1 position to meet initial requirements
+
+3.	Merge Pawns move methods PawnAMove, PawnBMove, PawnCMove into one method PawnMove(PawnSymbol,x,y, matrix):
+•	Introduce PawnSymbol parameter to specify the pawn that moves
+•	Replace PawnAMove(x,y,board) with PawnMove(‘A’,x,y,board)
+4.	Method IsCellValidForMove checks if cell of next move is in range and empty
+5.	Method IsCellValidAndEmpty(int row, int column) that checks if cell location is out of board range and is empty
+6.	Main body extracted to Start method
+
+7.	Change project structure
+•	Solution renamed to KingSurvival
+•	ProjectRenamed to KingSurvival
+8.	Game class is made non static – static methods are changed into non-static
+9.	Variable matrix is extracted as a class member from Start() method
+10.	Rename variables
+•	Matrix -> _gameBoard -> introduced property GameBoard
+11.	IExtracted method SetInitializeState() from the Start method
+12.	Rename variables, methods and classes
+•	Car -> King
+•	Peshka -> Pawn
+•	Field x -> _x
+•	Field y -> _y
+•	Game -> KingSurvivalGame
+•	Input method parameter :matrix -> gameBoard
+•	Print -> PringGameBoard
+•	Field car -> introduced property King
+•	Field peshkaA -> introduced property PawnA
+•	Field peshkaB-> introduced property PawnB
+•	Field peshkaC-> introduced property PawnC
+•	Field peshkaD-> introduced property PawnD
+
+13.	Format the code
+•	Change varibles and methods positions in classes
+•	Removed empty spaces
+•	Removed unnecessary comments
+
+14.	Introduce class Figure that replaces the identical King and Pawn
+•	Replace variables of type King and Pawn with Figure type
+•	Added new property DisplaySymbol to class Figure
+•	Added constructor Figure(string displaySymbol)
+•	public Figure(int x, int y) -> public Figure(char displaySymbol, int x, int y)
+15.	Rename field and properties in class Figure
+•	_x to _column
+•	X to Column
+•	_y to _row
+•	Y to Row
+
+
+16.	Refactor Method void KingMove(int dirX, int dirY, char[,] matrica) changed to 
+•	dirX renamed to columnDirection
+•	dirY renamed to rowDirection
+•	char[,] matrica is removed from input parameter and replaced with GameBoard as moving a Figure in that way has no sense if other gameBoard is given
+•	Multiple Ifs combined into one with OR clause
+•	Extract GameBoard columns and rows - int gameBoardRows = GameBoard.GetLength(0);
+               int gameBoardColumns = GameBoard.GetLength(1);
+•	Extract max column index and max row index:
+o	int gameBoardMaxColumnIndex = gameBoardColumns - 1;
+o	int gameBoardMaxRowIndex = gameBoardRows - 1;
+•	Changmethod type- bool
+bool KingMove(int columnDirection, int rowDirection)
+
+
+
+17.	Declare properties that checks if it is KingsTurn or Pawns Turn
+
+
+
+
+
+18.	Change method void PawnMove(char pawnSymbol, int dirX, int dirY, char[,] matrix)
+•	dirX renamed to columnDirection
+•	dirY renamed to rowDirection
+•	char[,] matrica is removed from input parameter and replaced with GameBoard as moving a Figure in that way has no sense if other gameBoard is given
+•	Multiple Ifs combined into one with OR clause
+•	Extract GameBoard columns and rows - int gameBoardRows = GameBoard.GetLength(0);
+?	int gameBoardColumns = GameBoard.GetLength(1);
+•	Extract max column index and max row index:
+o	int gameBoardMaxColumnIndex = gameBoardColumns - 1;
+o	int gameBoardMaxRowIndex = gameBoardRows - 1;
+•	Changmethod type- bool
+?	bool KingMove(int columnDirection, int rowDirection)
+
+
+********************************************************************************2011-07-08
